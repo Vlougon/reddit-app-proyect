@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CommunityLink;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommunityLinkController extends Controller
 {
@@ -29,7 +30,9 @@ class CommunityLinkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->merge(['user_id' => Auth::id(), 'channel_id' => 1]);
+        CommunityLink::create($request->all());
+        return back();
     }
 
     /**

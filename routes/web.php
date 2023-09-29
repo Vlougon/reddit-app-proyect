@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('community', [App\Http\Controllers\CommunityLinkController::class, 'index']);
 
-Route::post('community', [App\Http\Controllers\CommunityLinkController::class, 'store']);
+Route::post('community', [App\Http\Controllers\CommunityLinkController::class, 'store'])->middleware(['auth', 'verified']);
 
 Route::get('/', function () {
     return view('welcome');
