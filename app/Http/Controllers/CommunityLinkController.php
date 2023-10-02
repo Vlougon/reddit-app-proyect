@@ -35,6 +35,8 @@ class CommunityLinkController extends Controller
         request()->merge(['user_id' => Auth::id(), 'channel_id' => 1]);
         CommunityLink::create($request->all());
         return back();
+
+        // return response('Error', 200);
     }
 
     /**
