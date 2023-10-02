@@ -2,12 +2,12 @@
     @csrf
     <div class="form-group">
         <label for="title">Title:</label>
-        <input type="text" class="form-control" id="title" name="title" placeholder="What is the title of your article?">
+        <input type="text" class="form-control" id="title" name="title" placeholder="What is the title of your article?" value="{{old('title')}}">
     </div>
 
     <div class="form-group">
         <label for="link">Link:</label>
-        <input type="text" class="form-control" id="link" name="link" placeholder="What is the URL?">
+        <input type="text" class="form-control" id="link" name="link" placeholder="What is the URL?" value="{{old('link')}}">
     </div>
 
     @error('title')
@@ -27,7 +27,7 @@
         <select class="form-control @error('channel_id') is-invalid @enderror" name="channel_id">
             <option selected disabled>Pick a Channel...</option>
             @foreach ($channels as $channel)
-            <option value="{{ $channel->id }}">
+            <option value="{{ $channel->id }}" {{ old('channel_id') == $channel->id ? 'selected' : '' }}>
                 {{ $channel->title }}
             </option>
             @endforeach
