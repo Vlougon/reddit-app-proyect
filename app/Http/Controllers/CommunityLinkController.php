@@ -49,7 +49,15 @@ class CommunityLinkController extends Controller
 
         CommunityLink::create($data);
 
-        return back();
+        if($data['approved'] == 1) {
+
+            return back()->with('success','Se ha creado el link Correctamente');
+
+        } else {
+
+            return back()->with('error','You have no permission for this page!');
+        }
+
     }
 
     /**
