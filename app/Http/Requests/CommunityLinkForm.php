@@ -11,7 +11,7 @@ class CommunityLinkForm extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class CommunityLinkForm extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|max:255',
+
+            'link' => 'required|url|max:255',
+
+            'channel_id' => 'required|exists:channels,id',
         ];
     }
 }

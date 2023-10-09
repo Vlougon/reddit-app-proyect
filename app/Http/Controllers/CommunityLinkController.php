@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommunityLinkForm;
 use App\Models\Channel;
 use App\Models\CommunityLink;
 use Illuminate\Http\Request;
@@ -30,17 +31,9 @@ class CommunityLinkController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CommunityLinkForm $request)
     {
-        $data = $request->validate([
-
-            'title' => 'required|max:255',
-
-            'link' => 'required|url|max:255',
-
-            'channel_id' => 'required|exists:channels,id'
-
-        ]);
+        $data = $request->validated();
 
         $approved = Auth::user()->estaLegitimado();
 
