@@ -25,6 +25,6 @@ li small {
     grid-area: small;
 }
 
-.nav-item.dropdown {
+li .nav-item {
     border: none;
 }

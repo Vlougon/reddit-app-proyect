@@ -14,7 +14,7 @@ class CommunityLinkController extends Controller
      */
     public function index()
     {
-        $links = CommunityLink::where('approved', 1)->paginate(25);
+        $links = CommunityLink::where('approved', true)->latest('updated_at')->paginate(25);
         $channels = Channel::orderBy('title', 'asc')->get();
         return view('community/index', compact('links', 'channels'));
     }
@@ -36,7 +36,7 @@ class CommunityLinkController extends Controller
 
             'title' => 'required|max:255',
 
-            'link' => 'required|unique:community_links|url|max:255',
+            'link' => 'required|url|max:255',
 
             'channel_id' => 'required|exists:channels,id'
 
@@ -47,17 +47,27 @@ class CommunityLinkController extends Controller
         $data['user_id'] = Auth::id();
         $data['approved'] = $approved;
 
-        CommunityLink::create($data);
+        if (CommunityLink::hasAlreadyBeenSubmitted($data['link'])) {
 
-        if($data['approved'] == 1) {
+            if ($data['approved']) {
 
-            return back()->with('success','Se ha creado el link Correctamente');
+                return back()->with('success', 'Se ha actualizado el link Correctamente');
+            } else {
 
+                return back()->with('warning', 'El enlace ya está publicado y aprobado pero usted es un usuario no verificado, por lo que no se actualizará en la lista');
+            }
         } else {
 
-            return back()->with('error','You have no permission for this page!');
-        }
+            CommunityLink::create($data);
 
+            if ($data['approved']) {
+
+                return back()->with('success', 'Se ha creado el link Correctamente');
+            } else {
+
+                return back()->with('warning', 'Se ha hecho la contribución, pero usted no está legitimado');
+            }
+        }
     }
 
     /**
