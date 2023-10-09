@@ -1,0 +1,30 @@
+li {
+    padding: 10px;
+    border: 1px lightgrey solid;
+    border-collapse: collapse;
+    list-style: none;
+    display: grid;
+    grid-template-columns: .4fr .6fr 6fr;
+    grid-template-areas:
+    'span a small'
+    ;
+}
+
+li span {
+    grid-area: span;
+    padding: 5px;
+    margin-right: 15px;
+    color: white;
+}
+
+li a {
+    grid-area: a;
+}
+
+li small {
+    grid-area: small;
+}
+
+.nav-item.dropdown {
+    border: none;
+}
