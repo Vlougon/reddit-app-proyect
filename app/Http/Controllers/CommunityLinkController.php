@@ -25,7 +25,7 @@ class CommunityLinkController extends Controller
             $links = CommunityLink::where('approved', true)->latest('updated_at')->paginate(25);
         }
 
-        return view('community/index', compact('links', 'channels'));
+        return view('community/index', compact('links', 'channels', 'channel'));
     }
 
     /**
