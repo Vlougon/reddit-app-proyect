@@ -35,12 +35,15 @@ class CommunityLinkController extends Controller
     {
         $data = $request->validated();
 
+        $link = new CommunityLink();
+        $link->user_id = Auth::id();
+
         $approved = Auth::user()->estaLegitimado();
 
-        $data['user_id'] = Auth::id();
+        $data['user_id'] = $link->user_id;
         $data['approved'] = $approved;
 
-        if (CommunityLink::hasAlreadyBeenSubmitted($data['link'])) {
+        if ($link->hasAlreadyBeenSubmitted($data['link'])) {
 
             if ($data['approved']) {
 

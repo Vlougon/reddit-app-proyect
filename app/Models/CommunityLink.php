@@ -24,7 +24,7 @@ class CommunityLink extends Model
     return $this->belongsTo(Channel::class, 'channel_id');
   }
 
-  protected static function hasAlreadyBeenSubmitted($link)
+  public static function hasAlreadyBeenSubmitted($link)
   {
     if ($existing = static::where('link', $link)->first()) {
       if (Auth::user()->estaLegitimado() || !(Auth::user()->estaLegitimado()) && $existing['approved'] == 0) {
