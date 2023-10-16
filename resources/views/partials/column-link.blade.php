@@ -6,7 +6,9 @@
     </a>
     <small>Contributed by: {{ $link->creator->name }} {{ $link->updated_at->diffForHumans() }}</small>
     <span class="label label-default" style="background: {{ $link->channel->color }}">
-        {{ $link->channel->title }}
+        <a class="text-decoration-none text-white" href="/community/{{ $link->channel->slug }}">
+            {{ $link->channel->title }}
+        </a>
     </span>
 </li>
 @endforeach
