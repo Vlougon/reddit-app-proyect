@@ -13,5 +13,5 @@ jobs:
             host: 80.240.126.22
             port: 2222
             username: vlougon
-            keys: ${{secrets.PRIVATE_KEY}}
+            key: ${{secrets.PRIVATE_KEY}}
             script: "cd /var/www/html/reddit-like-app; git pull github master; npm run build"
