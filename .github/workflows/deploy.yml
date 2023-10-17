@@ -8,10 +8,10 @@ jobs:
     runs-on: DESKTOP-OBGLVNA
     steps:
         - name: Deploy
-        uses: appleboy/ssh-action@v0.1.8
-        with:
-            host: 80.240.126.22
-            port: 2222
-            username: vlougon
-            key: ${{secrets.PRIVATE_KEY}}
-            script: "cd /var/www/html/reddit-like-app; git pull github master; npm run build"
+          uses: appleboy/ssh-action@v0.1.8
+          with:
+              host: 80.240.126.22
+              port: 2222
+              username: vlougon
+              key: ${{secrets.PRIVATE_KEY}}
+              script: "cd /var/www/html/reddit-like-app; git pull github master; npm run build"
