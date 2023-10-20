@@ -21,6 +21,9 @@ Route::post('community', [App\Http\Controllers\CommunityLinkController::class, '
 Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkController::class, 'index']);
 
 Route::get('/', function () {
+
+    dd(opcache_get_status());
+
     return view('welcome');
 });
 
@@ -28,4 +31,4 @@ Auth::routes(['verify' => 'true']);
 
 Route::get('/home', function () {
     return view('home');
- })->middleware(['auth', 'verified'])->name('home');
+})->middleware(['auth', 'verified'])->name('home');
