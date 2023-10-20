@@ -22,7 +22,7 @@ Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkContro
 
 Route::get('/', function () {
 
-    dd(opcache_get_status());
+    dump(opcache_get_status());
 
     return view('welcome');
 });
