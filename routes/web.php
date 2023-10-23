@@ -21,9 +21,6 @@ Route::post('community', [App\Http\Controllers\CommunityLinkController::class, '
 Route::get('community/{channel:slug}', [App\Http\Controllers\CommunityLinkController::class, 'index']);
 
 Route::get('/', function () {
-
-    dump(opcache_get_status());
-
     return view('welcome');
 });
 
