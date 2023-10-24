@@ -6,7 +6,7 @@ li {
     display: grid;
     grid-template-columns: .4fr .6fr 6fr;
     grid-template-areas:
-    'span a small'
+    'span a smalla forma'
     ;
 }
 
@@ -22,7 +22,11 @@ li a {
 }
 
 li small {
-    grid-area: small;
+    grid-area: smalla;
+}
+
+li form {
+    grid-area: forma; 
 }
 
 li .nav-item {
