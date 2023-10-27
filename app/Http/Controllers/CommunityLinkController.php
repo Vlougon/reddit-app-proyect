@@ -20,7 +20,11 @@ class CommunityLinkController extends Controller
 
         if (request()->exists('popular')) {
 
-            $links = CommunityLinksQuery::getMostPopular();
+            if ($channel != null) {
+                $links = CommunityLinksQuery::getMostPopularByChannel($channel);
+            } else {
+                $links = CommunityLinksQuery::getMostPopular();
+            }
         } else {
 
             if ($channel != null) {

@@ -19,3 +19,12 @@
     </form>
 </li>
 @endforeach
+
+<ul class="nav">
+    <li class="nav-item col-6">
+        <a class="nav-link {{request()->exists('popular') ? '' : 'disabled' }}" href="{{request()->url()}}">Most recent</a>
+    </li>
+    <li class="nav-item col-6">
+        <a class="nav-link {{request()->exists('popular') ? 'disabled' : '' }}" href="?popular">Most popular</a>
+    </li>
+</ul>
