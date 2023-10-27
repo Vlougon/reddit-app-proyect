@@ -30,4 +30,4 @@ Route::get('/home', function () {
     return view('home');
 })->middleware(['auth', 'verified'])->name('home');
 
-Route::post('/votes/{link:id}', [App\Http\Controllers\CommunityLinkUserController::class, 'store']);
+Route::post('/votes/{link:id}', [App\Http\Controllers\CommunityLinkUserController::class, 'store'])->middleware(['auth', 'verified']);

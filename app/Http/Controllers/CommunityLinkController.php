@@ -17,11 +17,17 @@ class CommunityLinkController extends Controller
     {
         $channels = Channel::orderBy('title', 'asc')->get();
 
-        if ($channel != null) {
-            $links = $channel->communityLinks()->where('approved', true)->latest('updated_at')->paginate(25);
+        if (request()->exists('popular')) {
+
+            $links = CommunityLink::where('approved', true)->withCount('users')->orderByDesc('users_count')->paginate(25);
         } else {
-            
-            $links = CommunityLink::where('approved', true)->latest('updated_at')->paginate(25);
+
+            if ($channel != null) {
+                $links = $channel->communityLinks()->where('approved', true)->latest('updated_at')->paginate(25);
+            } else {
+
+                $links = CommunityLink::where('approved', true)->latest('updated_at')->paginate(25);
+            }
         }
 
         return view('community/index', compact('links', 'channels', 'channel'));

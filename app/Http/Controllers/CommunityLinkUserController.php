@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CommunityLink;
 use App\Models\CommunityLinkUser;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -30,12 +31,19 @@ class CommunityLinkUserController extends Controller
      */
     public function store(CommunityLink $link)
     {
-        CommunityLinkUser::firstOrNew([
-            'user_id' => Auth::id(),
-            'community_link_id' => $link->id
-        ])->toggle();
+        if (User::find(Auth::id())->legitimado) {
 
-        return back();
+            CommunityLinkUser::firstOrNew([
+                'user_id' => Auth::id(),
+                'community_link_id' => $link->id
+            ])->toggle();
+
+            return back();
+
+        } else {
+
+            return back()->with('error', 'No puedes votar, aún.');
+        }
     }
 
     /**
