@@ -18,7 +18,11 @@ class CommunityLinkController extends Controller
     {
         $channels = Channel::orderBy('title', 'asc')->get();
 
-        if (request()->exists('search')) {
+        if (request()->exists('popular') && request()->exists('search')) {
+
+            $links = CommunityLinksQuery::getByTitleAndPopular(trim(request()->input('search')));
+
+        } else if (request()->exists('search')) {
 
             if (preg_match('/[\s]/', request()->input('search'))) {
                 $searchs = explode(" ", request()->input('search'));
@@ -27,23 +31,20 @@ class CommunityLinkController extends Controller
             } else {
                 $links = CommunityLinksQuery::getByTitle(trim(request()->input('search')));
             }
+        } else if (request()->exists('popular')) {
+
+            if ($channel != null) {
+                $links = CommunityLinksQuery::getMostPopularByChannel($channel);
+            } else {
+                $links = CommunityLinksQuery::getMostPopular();
+            }
         } else {
 
-            if (request()->exists('popular')) {
-
-                if ($channel != null) {
-                    $links = CommunityLinksQuery::getMostPopularByChannel($channel);
-                } else {
-                    $links = CommunityLinksQuery::getMostPopular();
-                }
+            if ($channel != null) {
+                $links = CommunityLinksQuery::getByChannel($channel);
             } else {
 
-                if ($channel != null) {
-                    $links = CommunityLinksQuery::getByChannel($channel);
-                } else {
-
-                    $links = CommunityLinksQuery::getAll();
-                }
+                $links = CommunityLinksQuery::getAll();
             }
         }
 
