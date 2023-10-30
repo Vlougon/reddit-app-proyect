@@ -31,4 +31,9 @@ class CommunityLinksQuery
     {
         return CommunityLink::where('approved', true)->where('title', 'like', '%'.$search.'%')->paginate(25);
     }
+
+    public static function getByTwoTitles($search1, $search2)
+    {
+        return CommunityLink::where('approved', true)->where('title', 'like', '%'.$search1.'%')->where('title', 'like', '%'.$search2.'%')->paginate(25);
+    }
 }

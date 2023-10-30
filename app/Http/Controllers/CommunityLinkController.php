@@ -20,7 +20,13 @@ class CommunityLinkController extends Controller
 
         if (request()->exists('search')) {
 
-            $links = CommunityLinksQuery::getByTitle(trim(request()->input('search')));
+            if (preg_match('/[\s]/', request()->input('search'))) {
+                $searchs = explode(" ", request()->input('search'));
+
+                $links = CommunityLinksQuery::getByTwoTitles($searchs[0], $searchs[1], 2);
+            } else {
+                $links = CommunityLinksQuery::getByTitle(trim(request()->input('search')));
+            }
         } else {
 
             if (request()->exists('popular')) {
