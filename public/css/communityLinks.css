@@ -4,9 +4,9 @@ li {
     border-collapse: collapse;
     list-style: none;
     display: grid;
-    grid-template-columns: .4fr .6fr 6fr;
+    grid-template-columns: .5fr .6fr .5fr 6fr 1fr;
     grid-template-areas:
-    'span a smalla forma'
+    'span a svg smalla forma'
     ;
 }
 
@@ -31,4 +31,8 @@ li form {
 
 li .nav-item {
     border: none;
+}
+
+li svg {
+    grid-area: svg; 
 }
