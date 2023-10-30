@@ -33,7 +33,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        <form method="GET" action="/community" class="row g-3">
+                            <div class="col-auto">
+                                <input type="text" name="search" class="form-control" id="textInput" placeholder="Buscar..." value="{{old('textInput')}}">
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary mb-3">Buscar</button>
+                            </div>
+                        </form>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

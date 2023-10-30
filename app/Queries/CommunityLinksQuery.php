@@ -26,4 +26,9 @@ class CommunityLinksQuery
     {
         return $channel->communityLinks()->where('approved', true)->withCount('users')->orderByDesc('users_count')->paginate(25);
     }
+
+    public static function getByTitle($search)
+    {
+        return CommunityLink::where('approved', true)->where('title', 'like', '%'.$search.'%')->paginate(25);
+    }
 }

@@ -18,20 +18,26 @@ class CommunityLinkController extends Controller
     {
         $channels = Channel::orderBy('title', 'asc')->get();
 
-        if (request()->exists('popular')) {
+        if (request()->exists('search')) {
 
-            if ($channel != null) {
-                $links = CommunityLinksQuery::getMostPopularByChannel($channel);
-            } else {
-                $links = CommunityLinksQuery::getMostPopular();
-            }
+            $links = CommunityLinksQuery::getByTitle(trim(request()->input('search')));
         } else {
 
-            if ($channel != null) {
-                $links = CommunityLinksQuery::getByChannel($channel);
+            if (request()->exists('popular')) {
+
+                if ($channel != null) {
+                    $links = CommunityLinksQuery::getMostPopularByChannel($channel);
+                } else {
+                    $links = CommunityLinksQuery::getMostPopular();
+                }
             } else {
 
-                $links = CommunityLinksQuery::getAll();
+                if ($channel != null) {
+                    $links = CommunityLinksQuery::getByChannel($channel);
+                } else {
+
+                    $links = CommunityLinksQuery::getAll();
+                }
             }
         }
 
