@@ -57,4 +57,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->votes->contains($link);
     }
+
+    public function profile() {
+        return $this->hasOne(Profile::class);
+    }
 }

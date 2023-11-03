@@ -60,6 +60,7 @@
                         @endif
                         @else
                         <li class="nav-item dropdown">
+                            <img src="/storage/{{$userProfile ? $userProfile->imageUpload : 'images/default.png'}}" alt="A" width="50" height="50">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>

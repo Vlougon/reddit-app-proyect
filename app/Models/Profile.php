@@ -13,4 +13,8 @@ class Profile extends Model
         'user_id',
         'imageUpload',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommunityLinkForm;
 use App\Models\Channel;
+use App\Models\User;
 use App\Models\CommunityLink;
 use App\Queries\CommunityLinksQuery;
 use Illuminate\Http\Request;
@@ -48,7 +49,9 @@ class CommunityLinkController extends Controller
             }
         }
 
-        return view('community/index', compact('links', 'channels', 'channel'));
+        $userProfile = Auth::user()->profile;
+
+        return view('community/index', compact('links', 'channels', 'channel', 'userProfile'));
     }
 
     /**

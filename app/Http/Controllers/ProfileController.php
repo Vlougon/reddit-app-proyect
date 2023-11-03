@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use PHPUnit\Framework\MockObject\Generator\OriginalConstructorInvocationRequiredException;
 
 class ProfileController extends Controller
@@ -37,9 +39,11 @@ class ProfileController extends Controller
         if ($request->imageUpload) {
             $path = $request->file('imageUpload')->store('images', 'public');
 
-            $data['user_id'] = Auth::id();
-            $data['imageUpload'] = $path;
-            Profile::create($data);
+            Profile::updateOrCreate([
+                'user_id' => Auth::id(),
+                'imageUpload' => $path
+            ]);
+
             return back()->with('success', "Your image has been updated.");
         }
     }
@@ -57,7 +61,9 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
-        return view('profile/edit');
+        $userProfile = Auth::user()->profile;
+
+        return view('profile/edit', compact('userProfile'));
     }
 
     /**
