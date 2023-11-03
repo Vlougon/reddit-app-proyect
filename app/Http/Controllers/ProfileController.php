@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PHPUnit\Framework\MockObject\Generator\OriginalConstructorInvocationRequiredException;
 
 class ProfileController extends Controller
@@ -32,6 +33,15 @@ class ProfileController extends Controller
         $request->validate([
             'imageUpload' => 'required|file|image|max:200'
         ]);
+
+        if ($request->imageUpload) {
+            $path = $request->file('imageUpload')->store('images', 'public');
+
+            $data['user_id'] = Auth::id();
+            $data['imageUpload'] = $path;
+            Profile::create($data);
+            return back()->with('success', "Your image has been updated.");
+        }
     }
 
     /**
