@@ -31,7 +31,3 @@ Route::get('/home', function () {
 })->middleware(['auth', 'verified'])->name('home');
 
 Route::post('/votes/{link:id}', [App\Http\Controllers\CommunityLinkUserController::class, 'store'])->middleware(['auth', 'verified']);
-
-Route::get('profile/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->middleware(['auth', 'verified']);
-
-Route::post('profile/store', [App\Http\Controllers\ProfileController::class, 'store'])->middleware(['auth', 'verified']);
