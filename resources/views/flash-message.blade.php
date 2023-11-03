@@ -26,9 +26,9 @@
 </div>
 @endif
 
-@if ($errors->any())
+<!-- @if ($errors->any())
 <div class="alert alert-danger">
     <button type="button" class="close" data-dismiss="alert">×</button>
-    Consulte el formularío de Links para más Información.
+    <strong>{{ $message }}</strong>
 </div>
-@endif
+@endif -->

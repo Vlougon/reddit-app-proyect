@@ -29,7 +29,7 @@ class CommunityLinksQuery
 
     public static function getByTitle($search)
     {
-        return CommunityLink::where('approved', true)->where('title', 'like', '%' . $search . '%')->paginate(25);
+        return CommunityLink::where('approved', true)->where('title', 'like', '%' . $search . '%')->latest('updated_at')->paginate(25);
     }
 
     public static function getByTwoTitles($search1, $search2)
@@ -38,7 +38,7 @@ class CommunityLinksQuery
             ['approved', true],
             ['title', 'like', '%' . $search1 . '%'],
             ['title', 'like', '%' . $search2 . '%']
-        ])->paginate(25);
+        ])->latest('updated_at')->paginate(25);
     }
 
     public static function getByTitleAndPopular($search)
