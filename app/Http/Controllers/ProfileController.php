@@ -6,6 +6,7 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
 
 use PHPUnit\Framework\MockObject\Generator\OriginalConstructorInvocationRequiredException;
 
@@ -37,12 +38,22 @@ class ProfileController extends Controller
         ]);
 
         if ($request->imageUpload) {
-            $path = $request->file('imageUpload')->store('images', 'public');
+            $requestImage = $request->file('imageUpload');
+            $img = Image::make($requestImage);
 
-            Profile::updateOrCreate([
-                'user_id' => Auth::id(),
-                'imageUpload' => $path
-            ]);
+            $img->resize(400, 400, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+
+            $name = $requestImage->hashName();
+            $path = config('filesystems.disks.public.root') . '/images/' . $name;
+            $img->save($path);
+
+            Profile::updateOrCreate(
+                ['user_id' => Auth::id()],
+                ['imageUpload' => 'images/' . $name],
+            );
 
             return back()->with('success', "Your image has been updated.");
         }
