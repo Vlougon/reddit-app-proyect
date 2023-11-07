@@ -35,3 +35,5 @@ Route::post('/votes/{link:id}', [App\Http\Controllers\CommunityLinkUserControlle
 Route::get('profile/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->middleware(['auth', 'verified']);
 
 Route::post('profile/store', [App\Http\Controllers\ProfileController::class, 'store'])->middleware(['auth', 'verified']);
+
+Route::resource('users', 'App\Http\Controllers\UserController')->middleware(['auth', 'verified']);
