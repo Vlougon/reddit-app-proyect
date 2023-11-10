@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
  */
 class UserController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->authorizeResource(User::class, 'user');
+    // }
+
     /**
      * Display a listing of the resource.
      *
