@@ -41,6 +41,12 @@
                                 <button type="submit" class="btn btn-primary mb-3">Buscar</button>
                             </div>
                         </form>
+
+                        @if (Auth::user() && Auth::user()->admin)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('users') }}">Dashboard</a>
+                        </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
