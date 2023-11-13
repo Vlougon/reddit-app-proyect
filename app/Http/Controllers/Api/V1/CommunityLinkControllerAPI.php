@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 class CommunityLinkControllerAPI extends Controller
 {
     /**
+     * Control to only allow auth users to enter the store, update and destroy endpoints.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
