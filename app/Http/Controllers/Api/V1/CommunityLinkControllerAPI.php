@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\CommunityLink;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommunityLinkForm;
+use App\Queries\CommunityLinksQuery;
 use Illuminate\Support\Facades\Auth;
+
 
 class CommunityLinkControllerAPI extends Controller
 {
@@ -23,7 +25,21 @@ class CommunityLinkControllerAPI extends Controller
      */
     public function index()
     {
-        //
+        if (request()->exists('popular') && request()->exists('text')) {
+
+            $links = CommunityLinksQuery::getByTitleAndPopular(trim(request()->input('text')));
+        } else if (request()->exists('text')) {
+
+            $links = CommunityLinksQuery::getByTitle(trim(request()->input('text')));
+        } else if (request()->exists('popular')) {
+
+            $links = CommunityLinksQuery::getMostPopular();
+        } else {
+
+            $links = CommunityLinksQuery::getAll();
+        }
+
+        return response()->json(['links' => $links], 200);
     }
 
     /**
@@ -45,10 +61,10 @@ class CommunityLinkControllerAPI extends Controller
 
             if ($data['approved']) {
 
-                return response()->json([['message' => 'Se ha actualizado el link Correctamente'], ['links' => $link]], 200);
+                return response()->json([['message' => 'Se ha actualizado el link Correctamente'], ['link' => $link]], 200);
             } else {
 
-                return response()->json([['message' => 'El enlace ya está publicado y aprobado pero usted es un usuario no verificado, por lo que no se actualizará en la lista'], ['links' => $link]], 200);
+                return response()->json([['message' => 'El enlace ya está publicado y aprobado pero usted es un usuario no verificado, por lo que no se actualizará en la lista'], ['link' => $link]], 200);
             }
         } else {
 
@@ -56,10 +72,10 @@ class CommunityLinkControllerAPI extends Controller
 
             if ($data['approved']) {
 
-                return response()->json([['message' => 'Se ha creado el link Correctamente'], ['links' => $link]], 200);
+                return response()->json([['message' => 'Se ha creado el link Correctamente'], ['link' => $link]], 200);
             } else {
 
-                return response()->json([['message' => 'Se ha hecho la contribución, pero usted no está legitimado'], ['links' => $link]], 200);
+                return response()->json([['message' => 'Se ha hecho la contribución, pero usted no está legitimado'], ['link' => $link]], 200);
             }
         }
     }
