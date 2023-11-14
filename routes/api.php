@@ -23,4 +23,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('v1/communitylinks', CommunityLinkControllerAPI::class)->middleware('api');
 
-Route::post('v1/communitylinks/login', [App\Http\Controllers\Api\V1\LoginController::class, 'login  '])->middleware('api');
+Route::post('v1/communitylinks/login', [LoginController::class, 'login']);

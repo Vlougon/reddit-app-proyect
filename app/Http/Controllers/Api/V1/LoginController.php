@@ -12,13 +12,19 @@ class LoginController extends Controller
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-            $token = $user->createToken('MyApp')->accessToken;
-            return response()->json([
-                'message' => 'User loged successfully.',
-                'token' => $token
-            ], 200);
+            if (Auth::user()->hasVerifiedEmail()) {
+
+                $token = $user->createToken('MyApp')->accessToken;
+                return response()->json([
+                    'message' => 'User loged successfully.',
+                    'token' => $token
+                ], 200);
+                
+            } else {
+                return response()->json(['message' => 'Your Email is not verified, try again after you verfy it.'], 403);
+            }
         } else {
-            return response()->json(['message' => 'Unauthorized.'], 201);
+            return response()->json(['message' => 'Unauthorized.'], 401);
         }
     }
 }
