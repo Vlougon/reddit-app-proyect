@@ -85,7 +85,9 @@ class CommunityLinkControllerAPI extends Controller
      */
     public function show(CommunityLink $communityLink)
     {
-        //
+        // $link = CommunityLink::find($communityLink);
+
+        // return response()->json(['link' => $link], 200);
     }
 
     /**
@@ -99,8 +101,10 @@ class CommunityLinkControllerAPI extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CommunityLink $communityLink)
+    public function destroy($id/*CommunityLink $communityLink*/)
     {
-        //
+        $link = CommunityLink::find($id)->delete();
+
+        return response()->json([['message' => 'Link Eliminado!'], ['link' => $link]], 200);
     }
 }
