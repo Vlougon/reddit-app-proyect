@@ -101,10 +101,10 @@ class CommunityLinkControllerAPI extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id/*CommunityLink $communityLink*/)
+    public function destroy(CommunityLink $communitylink)
     {
-        $link = CommunityLink::find($id)->delete();
+        $communitylink->delete();
 
-        return response()->json([['message' => 'Link Eliminado!'], ['link' => $link]], 200);
+        return response()->json([['message' => 'Link Eliminado!'], ['link' => $communitylink]], 200);
     }
 }
